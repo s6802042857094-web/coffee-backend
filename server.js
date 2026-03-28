@@ -8,6 +8,10 @@ import patchMenuRoute from './routes/patch_menu.js';
 import deleteMenuRoute from './routes/delete_menu.js';
 
 import getCustomerRoute from './routes/get_customer.js';
+import postCustomerRoute from './routes/post_customer.js';
+
+import getToppingsRoute from './routes/get_topping.js';
+import postOrderRoute from './routes/post_order.js';
 
 const app = express();
 app.use(cors());
@@ -23,7 +27,14 @@ app.use("/api/menus", [
   deleteMenuRoute
 ]);
 
-app.use("/api/customers", getCustomerRoute);
+app.use("/api/customers", [
+  getCustomerRoute, 
+  postCustomerRoute
+]);
+
+app.use("/api/toppings", getToppingsRoute);
+
+app.use("/api/orders", postOrderRoute);
 
 app.listen(port, () => {
   console.log(`เซิร์ฟเวอร์กำลังทำงานอยู่ที่ : http://localhost:${port}`);

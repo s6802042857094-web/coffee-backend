@@ -11,12 +11,12 @@ router.delete("/:id", (req, res) => {
   db.query(sql, [id], (err, result) => {
     if (err) {
         console.error("เกิดข้อผิดพลาด : ", err.message);
-        return res.status(500).json({ error: "เกิดข้อผิดพลาดในการลบข้อมูลเมนู" });
+        return res.status(500).json({ status: "error", message: "เกิดข้อผิดพลาดในการลบข้อมูลเมนู" });
     }
     if (result.affectedRows === 0) {
-        return res.status(404).json({ error: `ไม่พบเมนูหมายเลข ${id}` });
+        return res.status(404).json({ status: "error", message: `ไม่พบเมนูหมายเลข ${id}` });
     }
-    res.json({ message: `ลบข้อมูลเมนูหมายเลข ${id} สำเร็จ` });
+    res.json({ status: "success", message: `ลบข้อมูลเมนูหมายเลข ${id} สำเร็จ` });
   });
 });
 

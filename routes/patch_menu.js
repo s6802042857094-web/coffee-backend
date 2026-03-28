@@ -15,7 +15,7 @@ router.patch("/:id", (req, res) => {
   if (category) { fields.push("category = ?"); values.push(category); }
 
   if (fields.length === 0) {
-    return res.status(400).json({ error: "กรุณาระบุข้อมูลที่ต้องการแก้ไขอย่างน้อย 1 อย่าง" });
+    return res.status(400).json({ status: "error", message: "กรุณาระบุข้อมูลที่ต้องการแก้ไขอย่างน้อย 1 อย่าง" });
   }
 
   values.push(id); 
@@ -25,12 +25,12 @@ router.patch("/:id", (req, res) => {
   db.query(sql, values, (err, result) => {
     if (err) {
         console.error("เกิดข้อผิดพลาด : ", err.message);
-        return res.status(500).json({ error: "เกิดข้อผิดพลาดในการอัปเดตข้อมูลเมนู" });
+        return res.status(500).json({ status: "error", message: "เกิดข้อผิดพลาดในการอัปเดตข้อมูลเมนู" });
     }
     if (result.affectedRows === 0) {
-        return res.status(404).json({ error: `ไม่พบเมนูหมายเลข ${id}` });
+        return res.status(404).json({ status: "error", message: `ไม่พบเมนูหมายเลข ${id}` });
     }
-    res.json({ message: `อัปเดตข้อมูลเมนูหมายเลข ${id} สำเร็จ` });
+    res.json({ status: "success", message: `อัปเดตข้อมูลเมนูหมายเลข ${id} สำเร็จ` });
   });
 });
 

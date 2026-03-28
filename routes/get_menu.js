@@ -10,10 +10,13 @@ router.get("/", (req, res) => {
   db.query(sql, (err, results) => {
     if (err) {
       console.error("เกิดข้อผิดพลาด : ", err.message);
-      return res.status(500).json({ error: "เกิดข้อผิดพลาดในการดึงข้อมูลเมนู" });
+      return res.status(500).json({ status: "error", message: "เกิดข้อผิดพลาดในการดึงข้อมูลเมนู" });
     }
 
-    res.json(results);
+    res.json({ 
+      status: "success", 
+      data: results 
+    });
   });
 });
 
